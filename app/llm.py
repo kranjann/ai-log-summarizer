@@ -4,21 +4,32 @@ import os
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 
-def test_connection():
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=[
-                {
-                    "role": "user",
-                    "content": "Say Hello"
-                }
-            ]
-        )
+def analyze_logs(log_text: str):
 
-        return response.choices[0].message.content
-    
-    except Exception as e:
-        return f"error occurred : {str(e)}"
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": """
+                You are a senior SRE engineer.
+
+                Analyze logs and provide:
+                1. Summary
+                2. Root Cause
+                3. Severity
+                4. Recommendation
+                """
+            },
+            {
+                "role": "user",
+                "content": log_text
+            }
+        ]
+    )
+
+    return response.choices[0].message.content
