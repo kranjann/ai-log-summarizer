@@ -1,6 +1,33 @@
-from llm import test_connection
+from pathlib import Path
 
-result = test_connection()
+from llm import analyze_logs
 
-print(result)
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+log_file = BASE_DIR / "logs" / "telemetry.log"
+
+
+def main():
+    try:
+        with open(log_file, "r", encoding="utf-8") as file:
+            logs = file.read()
+
+        print("\n========== INPUT LOG ==========\n")
+        print(logs)
+
+        print("\n========== ANALYSIS ==========\n")
+
+        result = analyze_logs(logs)
+
+        print(result)
+
+    except FileNotFoundError:
+        print(f"Log file not found: {log_file}")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+if __name__ == "__main__":
+    main()
