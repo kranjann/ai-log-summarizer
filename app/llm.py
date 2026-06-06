@@ -1,7 +1,10 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 from prompts import LOG_ANALYZER_PROMPT
+import json
 import os
+from schemas.log_schema import LogAnalysis
+
 
 load_dotenv()
 
@@ -26,4 +29,12 @@ def analyze_logs(log_text: str):
         ]
     )
 
-    return response.choices[0].message.content
+    result = response.choices[0].message.content
+
+    data = json.loads(result)
+
+    analysis = LogAnalysis(**data)
+
+    print(type(analysis))
+
+    return analysis

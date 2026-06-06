@@ -2,8 +2,11 @@
 
 2025-06-06 11:30:15 INFO Loaded 12000 records
 
+2025-06-06 11:30:22 ERROR Unknown Failure
+
 2025-06-06 11:30:20 ERROR OutOfMemoryError: Java heap space
 
 2025-06-06 11:30:20 ERROR Batch processing aborted
 
 2025-06-06 11:30:22 CRITICAL Application terminated unexpectedly
+
