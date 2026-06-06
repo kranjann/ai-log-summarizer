@@ -2,17 +2,18 @@
 
 ## Project Goal
 
-Build a production-style AI-powered log analysis platform while learning LLM engineering concepts from beginner to advanced.
+Build a production-style AI-powered log analysis platform while learning LLM engineering concepts from beginner to advanced through hands-on implementation.
 
-The project is intentionally being built incrementally to learn:
+The project is intentionally evolving step-by-step to learn:
 
 * Python project architecture
 * Git and GitHub workflows
 * Prompt Engineering
 * Structured Outputs
-* Pydantic
+* Pydantic Validation
 * Embeddings
-* RAG
+* Semantic Search
+* RAG (Retrieval-Augmented Generation)
 * Tool Calling
 * Agents
 * Evaluation
@@ -22,9 +23,7 @@ The project is intentionally being built incrementally to learn:
 
 ## Current Status
 
-### Completed Milestones
-
-#### Milestone 1 - AI Log Analyzer Foundation
+### Milestone 1 - AI Log Analyzer Foundation ✅
 
 Implemented:
 
@@ -39,17 +38,18 @@ Implemented:
 
 Learned:
 
-* Python imports
 * Virtual environments
-* Relative vs absolute paths
+* Python imports
 * Pathlib
+* Relative vs absolute paths
 * Git basics
 * Git diff
 * Git branching
+* CI/CD fundamentals
 
 ---
 
-#### Milestone 2 - Prompt Engineering V2
+### Milestone 2 - Prompt Engineering V2 ✅
 
 Implemented:
 
@@ -69,14 +69,14 @@ Learned:
 
 * Role prompting
 * Prompt specificity
+* Prompt guardrails
 * Prompt contracts
-* Guardrails
 * LLM evaluation
 * Inference vs evidence
 
 ---
 
-#### Milestone 3 - JSON Output Parsing
+### Milestone 3 - Structured JSON Output ✅
 
 Implemented:
 
@@ -84,20 +84,41 @@ Implemented:
 * `json.loads()` parsing
 * Python dictionary output
 
+Learned:
+
+* Structured output generation
+* JSON parsing
+* LLM as a data generator
+* Machine-readable outputs
+
+---
+
+### Milestone 4 - Pydantic Validation ✅
+
+Implemented:
+
+* `schemas/log_schema.py`
+* `LogAnalysis` Pydantic model
+* Validation layer between GPT and application
+* Typed domain objects
+
 Current Flow:
 
 Log File
 → Prompt
 → OpenAI
-→ JSON
-→ Python Dict
+→ JSON String
+→ json.loads()
+→ LogAnalysis (Pydantic)
+→ Application
 
 Learned:
 
-* Structured data generation
-* JSON parsing
-* LLM as a data generator
-* Importance of machine-readable outputs
+* Data contracts
+* Type validation
+* Domain models
+* Fail-fast principle
+* Why model output should never be trusted directly
 
 ---
 
@@ -106,27 +127,44 @@ Learned:
 ai-log-analyzer/
 
 app/
-
-* main.py
-* llm.py
-* prompts.py
+│
+├── main.py
+├── llm.py
+├── prompts.py
+│
+└── schemas/
+└── log_schema.py
 
 logs/
+│
+├── telemetry.log
+├── mqtt_failure.log
+└── application_crash.log
 
-* telemetry.log
-* mqtt_failure.log
-* application_crash.log
+docs/
+└── PROJECT_CONTEXT.md
 
 .github/workflows/
-
-* ci.yml
+└── ci.yml
 
 README.md
 requirements.txt
 
 ---
 
-## Current Log Test Cases
+## Current Data Model
+
+```python
+class LogAnalysis(BaseModel):
+    summary: str
+    root_cause: str
+    severity: str
+    recommendations: List[str]
+```
+
+---
+
+## Current Test Cases
 
 ### telemetry.log
 
@@ -148,7 +186,8 @@ Scenario:
 
 * TLS handshake failure
 * Certificate validation failure
-* Authentication rejection
+* Authentication rejected
+* MQTT connection terminated
 
 Expected Severity:
 
@@ -162,7 +201,7 @@ Scenario:
 
 * Java OutOfMemoryError
 * Batch processing aborted
-* Application termination
+* Application terminated
 
 Expected Severity:
 
@@ -182,7 +221,9 @@ Preferred Workflow:
 6. Merge PR
 7. Delete feature branch
 
-Avoid direct git merge into main unless explicitly needed.
+Important:
+
+Use GitHub Pull Requests instead of direct local merges whenever practical.
 
 ---
 
@@ -190,56 +231,99 @@ Avoid direct git merge into main unless explicitly needed.
 
 * Python
 * OpenAI SDK
+* Pydantic
 * python-dotenv
 * pathlib
 * GitHub Actions
 
 ---
 
-## Upcoming Milestones
+## AI Engineering Concepts Learned
 
-### Next
+### Prompt Engineering
 
-Structured Output V1
+* Role prompting
+* Output contracts
+* Guardrails
+* Severity classification
 
-Goals:
+### Structured Outputs
 
-* Introduce Pydantic
-* Create schemas
-* Validate LLM output
-* Convert dicts into typed objects
+* JSON generation
+* JSON parsing
+* Machine-readable responses
 
-Planned Structure:
+### Validation
 
-app/
+* Pydantic models
+* Type checking
+* Fail-fast design
 
-schemas/
+### Software Engineering
 
-* log_schema.py
-
-Expected Model:
-
-class LogAnalysis:
-summary
-root_cause
-severity
-recommendations
+* Feature branches
+* Pull Requests
+* CI pipelines
+* Incremental development
 
 ---
 
-### Future
+## Upcoming Milestone
+
+### Milestone 5 - Embeddings
+
+Goal:
+
+Teach the system to understand semantic similarity between logs.
+
+Current:
+
+New Log
+→ Analyze
+
+Future:
+
+New Log
+→ Generate Embedding
+→ Search Similar Historical Logs
+→ Retrieve Similar Incidents
+→ Analyze With Context
+
+Concepts To Learn:
+
+* Embeddings
+* Vectors
+* Cosine Similarity
+* Semantic Search
+* Similarity Retrieval
+
+---
+
+## Future Roadmap
+
+### Phase 2
 
 * Embeddings
 * Semantic Search
-* Mini RAG
-* Vector Databases
+* Historical Incident Retrieval
+
+### Phase 3
+
+* Mini RAG System
+* Context Injection
+* Retrieval-Augmented Analysis
+
+### Phase 4
+
 * Tool Calling
-* Agents
-* Multi-Agent Systems
-* Evaluation Framework
-* Observability
+* Agent Architecture
+
+### Phase 5
+
 * FastAPI
 * Docker
+* Deployment
+* Monitoring
 
 ---
 
@@ -247,27 +331,29 @@ recommendations
 
 1. Prompts are contracts.
 2. Understanding is different from format compliance.
-3. LLM output should be treated as data.
-4. Validate everything before trusting it.
+3. LLM output should be treated as untrusted input.
+4. Validate everything.
 5. Small PRs are easier to review than large commits.
 6. Debug one layer at a time:
 
    * File ingestion
    * Prompt
    * LLM response
-   * Parsing
+   * JSON parsing
    * Validation
 
 ---
 
 ## Last Completed Feature
 
-Prompt V2
+Feature Branch:
 
-Status:
-
-Merged via GitHub Pull Request
+feature/structured-output-v1
 
 Result:
 
-Consistent severity classification across all sample logs.
+Validated `LogAnalysis` Pydantic object returned from GPT output instead of a raw dictionary.
+
+Example Runtime Type:
+
+<class 'schemas.log_schema.LogAnalysis'>
