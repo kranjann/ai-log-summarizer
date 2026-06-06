@@ -1,0 +1,13 @@
+2025-06-06 10:02:01 INFO MQTT Client Starting
+
+2025-06-06 10:02:02 INFO Connecting to broker mqtt.company.com:8883
+
+2025-06-06 10:02:04 ERROR TLS Handshake Failed
+
+2025-06-06 10:02:04 ERROR Certificate validation failed
+
+2025-06-06 10:02:05 WARNING Retrying connection
+
+2025-06-06 10:02:10 ERROR Authentication rejected by broker
+
+2025-06-06 10:02:11 CRITICAL MQTT connection terminated

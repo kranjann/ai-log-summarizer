@@ -8,6 +8,7 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
+
 def analyze_logs(log_text: str):
 
     response = client.chat.completions.create(
@@ -15,15 +16,7 @@ def analyze_logs(log_text: str):
         messages=[
             {
                 "role": "system",
-                "content": """
-                You are a senior SRE engineer.
-
-                Analyze logs and provide:
-                1. Summary
-                2. Root Cause
-                3. Severity
-                4. Recommendation
-                """
+                "content": "You are a log analysis expert."
             },
             {
                 "role": "user",

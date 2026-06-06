@@ -1,0 +1,17 @@
+2025-06-06 09:15:21 INFO Application started
+
+2025-06-06 09:15:35 INFO Connecting to PostgreSQL database
+
+2025-06-06 09:15:37 ERROR Database connection timeout after 30 seconds
+
+2025-06-06 09:15:37 ERROR Connection pool exhausted
+
+2025-06-06 09:15:40 WARNING Retry attempt 1
+
+2025-06-06 09:15:45 WARNING Retry attempt 2
+
+2025-06-06 09:15:50 ERROR Unable to establish database connection
+
+2025-06-06 09:15:51 CRITICAL Service startup failed
+
+2025-06-06 09:15:52 INFO Application shutting down
