@@ -1,5 +1,6 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+from prompts import LOG_ANALYZER_PROMPT
 import os
 
 load_dotenv()
@@ -16,7 +17,7 @@ def analyze_logs(log_text: str):
         messages=[
             {
                 "role": "system",
-                "content": "You are a log analysis expert."
+                "content": LOG_ANALYZER_PROMPT
             },
             {
                 "role": "user",

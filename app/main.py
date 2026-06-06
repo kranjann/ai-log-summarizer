@@ -5,7 +5,7 @@ from llm import analyze_logs
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-log_file = BASE_DIR / "logs" / "telemetry.log"
+log_file = BASE_DIR / "logs" / "application_crash.log"
 
 
 def main():
