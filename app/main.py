@@ -18,9 +18,20 @@ def main():
 
         print("\n========== ANALYSIS ==========\n")
 
-        result = analyze_logs(logs)
+        analysis = analyze_logs(logs)
 
-        print(result)
+        print("\nSummary:")
+        print(analysis.summary)
+
+        print("\nRoot Cause:")
+        print(analysis.root_cause)
+
+        print("\nSeverity:")
+        print(analysis.severity)
+
+        print("\nRecommendations:")
+        for recommendation in analysis.recommendations:
+            print(f"- {recommendation}")
 
     except FileNotFoundError:
         print(f"Log file not found: {log_file}")
