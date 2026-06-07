@@ -34,4 +34,4 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python app/main.py
+          python -m main.py
