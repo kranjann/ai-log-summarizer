@@ -1,0 +1,4 @@
+Database query execution exceeded configured timeout.
+PostgreSQL server responded slowly under heavy load.
+Several transactions were aborted.
+Application reported database timeout exceptions.

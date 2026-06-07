@@ -1,0 +1,4 @@
+Available disk space dropped below critical threshold.
+Log files could not be written.
+Database storage operations failed.
+System entered read-only protection mode.

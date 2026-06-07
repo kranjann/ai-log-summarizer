@@ -1,0 +1,4 @@
+Application failed to connect to Redis cache server.
+Connection attempts were repeatedly refused.
+Cache operations failed.
+Response latency increased due to cache unavailability.
