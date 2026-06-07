@@ -1,0 +1,5 @@
+{
+  "id": "INC009",
+  "summary": "Redis cache unavailable due to network partition",
+  "resolution": "Restored network connectivity and configured Redis failover."
+}

@@ -1,0 +1,5 @@
+{
+  "id": "INC010",
+  "summary": "Application startup failure caused by missing environment variables",
+  "resolution": "Added startup validation checks and corrected deployment configuration."
+}

@@ -1,0 +1,5 @@
+{
+  "id": "INC004",
+  "summary": "Database connection timeout under heavy load",
+  "resolution": "Optimized slow queries and added connection pooling."
+}

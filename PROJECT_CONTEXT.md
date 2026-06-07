@@ -2,17 +2,18 @@
 
 ## Project Goal
 
-Build a production-style AI-powered log analysis platform while learning LLM engineering concepts from beginner to advanced.
+Build a production-style AI-powered log analysis platform while learning LLM engineering concepts from beginner to advanced through hands-on implementation.
 
-The project is intentionally being built incrementally to learn:
+The project is intentionally evolving step-by-step to learn:
 
 * Python project architecture
 * Git and GitHub workflows
 * Prompt Engineering
 * Structured Outputs
-* Pydantic
+* Pydantic Validation
 * Embeddings
-* RAG
+* Semantic Search
+* RAG (Retrieval-Augmented Generation)
 * Tool Calling
 * Agents
 * Evaluation
@@ -20,11 +21,9 @@ The project is intentionally being built incrementally to learn:
 
 ---
 
-## Current Status
+# Current Status
 
-### Completed Milestones
-
-#### Milestone 1 - AI Log Analyzer Foundation
+## Milestone 1 - AI Log Analyzer Foundation ✅
 
 Implemented:
 
@@ -39,50 +38,66 @@ Implemented:
 
 Learned:
 
-* Python imports
 * Virtual environments
-* Relative vs absolute paths
+* Python imports
 * Pathlib
+* Relative vs absolute paths
 * Git basics
-* Git diff
 * Git branching
+* Pull Requests
+* CI/CD fundamentals
 
 ---
 
-#### Milestone 2 - Prompt Engineering V2
+## Milestone 2 - Prompt Engineering V2 ✅
 
 Implemented:
 
-* Dedicated `prompts.py`
+* Dedicated prompts module
 * System prompt design
 * Severity classification rules
-* Consistent output formatting
+* Consistent response format
 
 Prompt Contract:
 
 Summary:
 Root Cause:
 Severity:
-Recommendation:
+Recommendations:
 
 Learned:
 
 * Role prompting
 * Prompt specificity
+* Prompt guardrails
 * Prompt contracts
-* Guardrails
 * LLM evaluation
-* Inference vs evidence
 
 ---
 
-#### Milestone 3 - JSON Output Parsing
+## Milestone 3 - Structured JSON Output ✅
 
 Implemented:
 
-* Prompt updated to return JSON
-* `json.loads()` parsing
-* Python dictionary output
+* JSON response generation
+* JSON parsing
+* Machine-readable output
+
+Learned:
+
+* Structured outputs
+* JSON parsing
+* LLM data generation patterns
+
+---
+
+## Milestone 4 - Pydantic Validation ✅
+
+Implemented:
+
+* Pydantic schema layer
+* LogAnalysis domain model
+* Validation between LLM and application
 
 Current Flow:
 
@@ -90,45 +105,146 @@ Log File
 → Prompt
 → OpenAI
 → JSON
-→ Python Dict
+→ json.loads()
+→ LogAnalysis
+→ Application
+
+Data Model:
+
+```python
+class LogAnalysis(BaseModel):
+    summary: str
+    root_cause: str
+    severity: str
+    recommendations: List[str]
+```
 
 Learned:
 
-* Structured data generation
-* JSON parsing
-* LLM as a data generator
-* Importance of machine-readable outputs
+* Data contracts
+* Domain models
+* Validation
+* Fail-fast design
+* Typed application architecture
 
 ---
 
-## Current Architecture
+## Milestone 5 - Embedding Foundation ✅
+
+Implemented:
+
+* Embedding service
+* OpenAI Embeddings API integration
+* Environment configuration reuse
+* First vector generation
+
+Current Flow:
+
+Text
+→ Embedding Model
+→ Vector
+
+Example:
+
+Input:
+
+PostgreSQL connection pool exhausted
+
+Output:
+
+```python
+[
+    -0.0546,
+    -0.0300,
+    0.0701,
+    ...
+]
+```
+
+Observed:
+
+* Embedding Type: list
+* Embedding Dimensions: 1536
+
+Learned:
+
+* Embeddings
+* Vectors
+* Semantic representations
+* Embedding models vs chat models
+* High-dimensional vector spaces
+
+Key Insight:
+
+Different text with similar meaning generates vectors that are close together in semantic space.
+
+Examples:
+
+* PostgreSQL connection pool exhausted
+* Unable to acquire database connection
+
+These are semantically similar despite using different words.
+
+---
+
+# Current Architecture
 
 ai-log-analyzer/
 
 app/
+│
+├── main.py
+├── config.py
+│
+├── services/
+│   ├── llm_service.py
+│   └── embedding_service.py
+│
+├── prompts.py
+│
+└── schemas/
+└── log_schema.py
 
-* main.py
-* llm.py
-* prompts.py
+data/
+│
+└── incidents/
 
 logs/
 
-* telemetry.log
-* mqtt_failure.log
-* application_crash.log
+docs/
+│
+└── PROJECT_CONTEXT.md
 
 .github/workflows/
-
-* ci.yml
 
 README.md
 requirements.txt
 
 ---
 
-## Current Log Test Cases
+# Historical Incident Dataset
 
-### telemetry.log
+Planned Incident Categories:
+
+* Database failures
+* Memory failures
+* Authentication failures
+* TLS failures
+* Kafka issues
+* Redis failures
+* Disk exhaustion
+* API rate limits
+* Configuration errors
+
+Purpose:
+
+Provide retrieval candidates for future semantic search and RAG implementation.
+
+---
+
+# Current Test Logs
+
+## telemetry.log
 
 Scenario:
 
@@ -142,13 +258,13 @@ Critical
 
 ---
 
-### mqtt_failure.log
+## mqtt_failure.log
 
 Scenario:
 
 * TLS handshake failure
 * Certificate validation failure
-* Authentication rejection
+* MQTT authentication rejected
 
 Expected Severity:
 
@@ -156,13 +272,13 @@ Critical
 
 ---
 
-### application_crash.log
+## application_crash.log
 
 Scenario:
 
 * Java OutOfMemoryError
-* Batch processing aborted
-* Application termination
+* Batch processing failure
+* Application terminated
 
 Expected Severity:
 
@@ -170,104 +286,176 @@ Critical
 
 ---
 
-## Git Workflow
+# Git Workflow
 
 Preferred Workflow:
 
 1. Create feature branch
 2. Commit changes
 3. Push branch
-4. Open GitHub Pull Request
-5. Review changes
+4. Open Pull Request
+5. Review
 6. Merge PR
 7. Delete feature branch
 
-Avoid direct git merge into main unless explicitly needed.
+Example Branches:
+
+* feature/structured-output-v1
+* feature/embedding-foundation
+* feature/semantic-search-v1
+
+Important:
+
+Use GitHub Pull Requests instead of direct merges whenever practical.
 
 ---
 
-## Current Tech Stack
+# Current Tech Stack
 
 * Python
 * OpenAI SDK
+* Pydantic
 * python-dotenv
-* pathlib
 * GitHub Actions
 
 ---
 
-## Upcoming Milestones
+# AI Engineering Concepts Learned
 
-### Next
+## Prompt Engineering
 
-Structured Output V1
+* Role prompting
+* Output contracts
+* Guardrails
+* Classification
 
-Goals:
+## Structured Outputs
 
-* Introduce Pydantic
-* Create schemas
-* Validate LLM output
-* Convert dicts into typed objects
+* JSON generation
+* JSON parsing
+* Machine-readable responses
 
-Planned Structure:
+## Validation
 
-app/
+* Pydantic models
+* Type checking
+* Data contracts
 
-schemas/
+## Embeddings
 
-* log_schema.py
+* Vector representations
+* Semantic similarity
+* Embedding generation
+* High-dimensional search foundations
 
-Expected Model:
+## Software Engineering
 
-class LogAnalysis:
-summary
-root_cause
-severity
-recommendations
+* Feature branches
+* Pull Requests
+* CI pipelines
+* Incremental delivery
 
 ---
 
-### Future
+# Upcoming Milestone
 
-* Embeddings
+## Milestone 6 - Semantic Search
+
+Goal:
+
+Find historical incidents that are semantically similar to a new log.
+
+Future Flow:
+
+New Log
+→ Embedding
+→ Cosine Similarity
+→ Top-K Similar Incidents
+→ Ranked Results
+
+Concepts To Learn:
+
+* Cosine Similarity
+* Vector Comparison
+* Nearest Neighbors
+* Top-K Retrieval
 * Semantic Search
-* Mini RAG
-* Vector Databases
-* Tool Calling
-* Agents
-* Multi-Agent Systems
+
+Deliverable:
+
+Return the most similar incidents for a new log entry.
+
+---
+
+# Future Roadmap
+
+## Phase 2
+
+* Semantic Search
+* Historical Incident Retrieval
+
+## Phase 3
+
+* Mini RAG System
+* Context Injection
+* Retrieval-Augmented Analysis
+
+## Phase 4
+
 * Evaluation Framework
-* Observability
+* Prompt Evaluation
+* Retrieval Evaluation
+
+## Phase 5
+
+* Tool Calling
+* Agent Architecture
+
+## Phase 6
+
 * FastAPI
 * Docker
+* Deployment
+* Monitoring
+* Observability
 
 ---
 
-## Key Lessons Learned
+# Key Lessons Learned
 
 1. Prompts are contracts.
 2. Understanding is different from format compliance.
-3. LLM output should be treated as data.
-4. Validate everything before trusting it.
+3. LLM output should be treated as untrusted input.
+4. Validate everything.
 5. Small PRs are easier to review than large commits.
-6. Debug one layer at a time:
+6. Embeddings encode meaning, not keywords.
+7. Similarity is measured mathematically, not linguistically.
+8. Debug one layer at a time:
 
    * File ingestion
    * Prompt
    * LLM response
-   * Parsing
+   * JSON parsing
    * Validation
+   * Embedding generation
+   * Similarity search
 
 ---
 
-## Last Completed Feature
+# Last Completed Feature
 
-Prompt V2
+Feature Branch:
 
-Status:
-
-Merged via GitHub Pull Request
+feature/embedding-foundation
 
 Result:
 
-Consistent severity classification across all sample logs.
+Successfully generated OpenAI embeddings and verified semantic vector generation.
+
+Example Runtime Output:
+
+```python
+<class 'list'>
+1536
+[-0.0546, -0.0300, 0.0701, ...]
+```
