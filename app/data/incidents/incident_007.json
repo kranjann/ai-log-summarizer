@@ -1,0 +1,5 @@
+{
+  "id": "INC007",
+  "summary": "Disk space exhaustion on application server",
+  "resolution": "Cleaned log files, increased storage allocation, and implemented retention policies."
+}

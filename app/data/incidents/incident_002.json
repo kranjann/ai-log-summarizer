@@ -1,0 +1,5 @@
+{
+  "id": "INC002",
+  "summary": "Java heap space OutOfMemoryError during batch processing",
+  "resolution": "Increased JVM heap allocation and optimized batch processing logic."
+}

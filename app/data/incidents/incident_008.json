@@ -1,0 +1,5 @@
+{
+  "id": "INC008",
+  "summary": "External API rate limit exceeded",
+  "resolution": "Implemented request throttling and exponential backoff retry strategy."
+}

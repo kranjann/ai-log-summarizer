@@ -1,0 +1,5 @@
+{
+  "id": "INC003",
+  "summary": "MQTT TLS certificate validation failure",
+  "resolution": "Updated expired certificates and corrected truststore configuration."
+}

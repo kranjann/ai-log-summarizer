@@ -1,0 +1,5 @@
+{
+  "id": "INC006",
+  "summary": "Kafka consumer lag increased due to processing bottleneck",
+  "resolution": "Scaled consumers horizontally and optimized message handling."
+}

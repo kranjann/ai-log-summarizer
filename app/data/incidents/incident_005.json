@@ -1,0 +1,5 @@
+{
+  "id": "INC005",
+  "summary": "Authentication failures caused by invalid service account credentials",
+  "resolution": "Rotated credentials and updated application secrets."
+}
