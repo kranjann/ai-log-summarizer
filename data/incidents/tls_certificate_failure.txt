@@ -1,0 +1,4 @@
+TLS handshake failed during secure connection establishment.
+Server certificate validation was unsuccessful.
+Certificate chain could not be verified.
+Secure communication channel was not established.

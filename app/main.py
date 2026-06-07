@@ -1,6 +1,6 @@
 from pathlib import Path
-
-from llm import analyze_logs
+import app.config
+from app.services.llm_service import LLMService
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,6 +9,9 @@ log_file = BASE_DIR / "logs" / "application_crash.log"
 
 
 def main():
+
+    llm_service = LLMService()
+    
     try:
         with open(log_file, "r", encoding="utf-8") as file:
             logs = file.read()
@@ -18,7 +21,7 @@ def main():
 
         print("\n========== ANALYSIS ==========\n")
 
-        analysis = analyze_logs(logs)
+        analysis = llm_service.analyze_logs(logs)
 
         print("\nSummary:")
         print(analysis.summary)

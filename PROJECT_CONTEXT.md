@@ -1,23 +1,47 @@
 # AI Log Analyzer - Project Context
 
-## Project Goal
+## Project Vision
 
-Build a production-style AI-powered log analysis platform while learning LLM engineering concepts from beginner to advanced through hands-on implementation.
+Build a production-style AI-powered log analysis platform while learning modern LLM Engineering concepts from beginner to advanced through hands-on implementation.
 
-The project is intentionally evolving step-by-step to learn:
+The project is intentionally designed as a progressive learning journey covering:
 
-* Python project architecture
-* Git and GitHub workflows
+* Python Architecture
+* Git & GitHub Workflows
 * Prompt Engineering
 * Structured Outputs
 * Pydantic Validation
 * Embeddings
 * Semantic Search
-* RAG (Retrieval-Augmented Generation)
+* Retrieval-Augmented Generation (RAG)
+* Evaluation
 * Tool Calling
 * Agents
-* Evaluation
 * Observability
+* Production Deployment
+
+---
+
+# Project Objectives
+
+The goal is not only to build a useful application but also to understand how modern AI systems are engineered in production environments.
+
+Each milestone introduces a new AI engineering concept while extending the application architecture.
+
+---
+
+# Architecture Principles
+
+1. Treat LLM output as untrusted input.
+2. Validate all AI-generated data.
+3. Keep business logic inside service layers.
+4. Keep schemas independent from model providers.
+5. Prefer small, focused modules.
+6. Build incrementally using small pull requests.
+7. Design retrieval components to remain provider-agnostic.
+8. Separate prompting, retrieval, and orchestration responsibilities.
+9. Fail fast when data contracts are violated.
+10. Optimize for maintainability before optimization.
 
 ---
 
@@ -25,91 +49,82 @@ The project is intentionally evolving step-by-step to learn:
 
 ## Milestone 1 - AI Log Analyzer Foundation ✅
 
-Implemented:
+### Implemented
 
 * OpenAI API integration
-* Environment variable management with `.env`
+* Environment variable management using `.env`
 * Log file ingestion
 * Pathlib-based file handling
-* CLI execution via `main.py`
+* CLI execution through `main.py`
 * GitHub repository setup
 * GitHub Actions CI pipeline
 * Feature branch workflow
 
-Learned:
+### Learned
 
 * Virtual environments
 * Python imports
 * Pathlib
 * Relative vs absolute paths
-* Git basics
-* Git branching
+* Git fundamentals
+* Branching strategies
 * Pull Requests
-* CI/CD fundamentals
+* CI/CD basics
 
 ---
 
 ## Milestone 2 - Prompt Engineering V2 ✅
 
-Implemented:
+### Implemented
 
 * Dedicated prompts module
 * System prompt design
-* Severity classification rules
-* Consistent response format
+* Severity classification logic
+* Consistent response formatting
 
-Prompt Contract:
+### Prompt Contract
 
 Summary:
 Root Cause:
 Severity:
 Recommendations:
 
-Learned:
+### Learned
 
 * Role prompting
 * Prompt specificity
-* Prompt guardrails
 * Prompt contracts
-* LLM evaluation
+* Guardrails
+* LLM behavior control
 
 ---
 
 ## Milestone 3 - Structured JSON Output ✅
 
-Implemented:
+### Implemented
 
 * JSON response generation
 * JSON parsing
 * Machine-readable output
 
-Learned:
+### Learned
 
 * Structured outputs
-* JSON parsing
-* LLM data generation patterns
+* Output consistency
+* Data serialization
+* LLM response formatting
 
 ---
 
 ## Milestone 4 - Pydantic Validation ✅
 
-Implemented:
+### Implemented
 
 * Pydantic schema layer
-* LogAnalysis domain model
-* Validation between LLM and application
+* Domain model validation
+* Contract enforcement between LLM and application
 
-Current Flow:
-
-Log File
-→ Prompt
-→ OpenAI
-→ JSON
-→ json.loads()
-→ LogAnalysis
-→ Application
-
-Data Model:
+### Data Model
 
 ```python
 class LogAnalysis(BaseModel):
@@ -119,76 +134,81 @@ class LogAnalysis(BaseModel):
     recommendations: List[str]
 ```
 
-Learned:
+### Current Flow
 
-* Data contracts
+Log File
+→ Prompt
+→ OpenAI
+→ JSON
+→ json.loads()
+→ LogAnalysis
+→ Application
+
+### Learned
+
 * Domain models
-* Validation
+* Validation layers
+* Typed architecture
 * Fail-fast design
-* Typed application architecture
+* Data contracts
 
 ---
 
 ## Milestone 5 - Embedding Foundation ✅
 
-Implemented:
+### Implemented
 
 * Embedding service
 * OpenAI Embeddings API integration
-* Environment configuration reuse
-* First vector generation
+* Reusable configuration management
+* Vector generation
 
-Current Flow:
+### Current Flow
 
 Text
 → Embedding Model
 → Vector
 
-Example:
-
-Input:
-
-PostgreSQL connection pool exhausted
-
-Output:
+### Example Runtime Output
 
 ```python
-[
-    -0.0546,
-    -0.0300,
-    0.0701,
-    ...
-]
+<class 'list'>
+1536
+[-0.0546, -0.0300, 0.0701, ...]
 ```
 
-Observed:
+### Observations
 
 * Embedding Type: list
-* Embedding Dimensions: 1536
+* Dimensions: 1536
 
-Learned:
+### Learned
 
 * Embeddings
-* Vectors
-* Semantic representations
-* Embedding models vs chat models
+* Vector representations
+* Semantic similarity
+* Embedding models
 * High-dimensional vector spaces
 
-Key Insight:
+### Key Insight
 
-Different text with similar meaning generates vectors that are close together in semantic space.
+Embeddings encode meaning rather than exact keywords.
 
-Examples:
+Example:
 
-* PostgreSQL connection pool exhausted
-* Unable to acquire database connection
+"PostgreSQL connection pool exhausted"
 
-These are semantically similar despite using different words.
+and
+
+"Unable to acquire database connection"
+
+produce vectors that are close in semantic space despite using different words.
 
 ---
 
 # Current Architecture
 
+```text
 ai-log-analyzer/
 
 app/
@@ -203,7 +223,7 @@ app/
 ├── prompts.py
 │
 └── schemas/
-└── log_schema.py
+    └── log_schema.py
 
 data/
 │
@@ -219,26 +239,87 @@ docs/
 
 README.md
 requirements.txt
+```
+
+---
+
+# Current Data Flow
+
+```text
+Log File
+    │
+    ▼
+read_log_file()
+    │
+    ▼
+Prompt Builder
+    │
+    ▼
+OpenAI Chat Model
+    │
+    ▼
+JSON Response
+    │
+    ▼
+json.loads()
+    │
+    ▼
+LogAnalysis (Pydantic)
+    │
+    ▼
+CLI Output
+```
+
+---
+
+# Planned Architecture Evolution
+
+```text
+app/
+│
+├── main.py
+├── config.py
+│
+├── services/
+│   ├── llm_service.py
+│   ├── embedding_service.py
+│   ├── retrieval_service.py
+│   ├── rag_service.py
+│   └── evaluation_service.py
+│
+├── repositories/
+│   └── incident_repository.py
+│
+├── schemas/
+│   ├── log_schema.py
+│   └── incident_schema.py
+│
+├── prompts/
+│   ├── analysis_prompt.py
+│   └── rag_prompt.py
+│
+└── utils/
+```
 
 ---
 
 # Historical Incident Dataset
 
-Planned Incident Categories:
+## Planned Incident Categories
 
 * Database failures
 * Memory failures
 * Authentication failures
 * TLS failures
-* Kafka issues
+* Kafka failures
 * Redis failures
 * Disk exhaustion
 * API rate limits
 * Configuration errors
 
-Purpose:
+## Purpose
 
-Provide retrieval candidates for future semantic search and RAG implementation.
+Provide retrieval candidates for semantic search and future RAG implementation.
 
 ---
 
@@ -288,23 +369,23 @@ Critical
 
 # Git Workflow
 
-Preferred Workflow:
+## Preferred Workflow
 
 1. Create feature branch
 2. Commit changes
 3. Push branch
 4. Open Pull Request
-5. Review
+5. Review changes
 6. Merge PR
-7. Delete feature branch
+7. Delete branch
 
-Example Branches:
+## Example Branches
 
 * feature/structured-output-v1
 * feature/embedding-foundation
 * feature/semantic-search-v1
 
-Important:
+## Important
 
 Use GitHub Pull Requests instead of direct merges whenever practical.
 
@@ -320,7 +401,45 @@ Use GitHub Pull Requests instead of direct merges whenever practical.
 
 ---
 
-# AI Engineering Concepts Learned
+# Technical Debt
+
+Current Known Gaps:
+
+* No automated test suite
+* No retrieval layer
+* No vector persistence
+* No retry handling
+* No evaluation framework
+* No application logging
+* No configuration validation
+* No observability tooling
+
+---
+
+# Evaluation Metrics
+
+## Analysis Metrics
+
+* Severity accuracy
+* Root cause accuracy
+* Recommendation usefulness
+
+## Retrieval Metrics
+
+* Precision@K
+* Recall@K
+* Retrieval latency
+
+## System Metrics
+
+* API latency
+* Token consumption
+* Cost per analysis
+* End-to-end runtime
+
+---
+
+# LLM Engineering Concepts Learned
 
 ## Prompt Engineering
 
@@ -338,15 +457,15 @@ Use GitHub Pull Requests instead of direct merges whenever practical.
 ## Validation
 
 * Pydantic models
-* Type checking
 * Data contracts
+* Type safety
 
 ## Embeddings
 
 * Vector representations
 * Semantic similarity
 * Embedding generation
-* High-dimensional search foundations
+* High-dimensional search
 
 ## Software Engineering
 
@@ -357,33 +476,86 @@ Use GitHub Pull Requests instead of direct merges whenever practical.
 
 ---
 
+# LLM Engineering Maturity Roadmap
+
+Level 1
+✅ Prompt Engineering
+
+Level 2
+✅ Structured Outputs
+
+Level 3
+✅ Validation Layer
+
+Level 4
+✅ Embeddings
+
+Level 5
+➡ Semantic Search
+
+Level 6
+➡ RAG
+
+Level 7
+➡ Evaluation
+
+Level 8
+➡ Tool Calling
+
+Level 9
+➡ Agents
+
+Level 10
+➡ Production Deployment
+
+Level 11
+➡ Observability
+
+Level 12
+➡ Multi-Agent Systems
+
+---
+
 # Upcoming Milestone
 
 ## Milestone 6 - Semantic Search
 
-Goal:
+### Goal
 
-Find historical incidents that are semantically similar to a new log.
+Find historical incidents that are semantically similar to an incoming log.
 
-Future Flow:
+### Planned Flow
 
 New Log
-→ Embedding
+→ Embedding Service
+→ Incident Embeddings
 → Cosine Similarity
-→ Top-K Similar Incidents
-→ Ranked Results
+→ Top-K Ranking
+→ Similar Incidents
 
-Concepts To Learn:
+### Skills To Learn
 
-* Cosine Similarity
-* Vector Comparison
-* Nearest Neighbors
-* Top-K Retrieval
-* Semantic Search
+* Cosine similarity
+* Vector mathematics
+* Ranking systems
+* Nearest-neighbor retrieval
+* Semantic search
 
-Deliverable:
+### Deliverable
 
-Return the most similar incidents for a new log entry.
+Return the Top-3 most similar historical incidents for a new log.
+
+### Initial Scope
+
+1. Create incident dataset
+2. Generate embeddings
+3. Compute cosine similarity
+4. Rank incidents
+5. Return Top-K results
+
+Do not introduce vector databases yet.
+
+The objective is to understand semantic search fundamentals first.
 
 ---
 
@@ -430,25 +602,31 @@ Return the most similar incidents for a new log entry.
 5. Small PRs are easier to review than large commits.
 6. Embeddings encode meaning, not keywords.
 7. Similarity is measured mathematically, not linguistically.
-8. Debug one layer at a time:
+8. Build retrieval before RAG.
+9. Learn concepts before introducing frameworks.
+10. Debug one layer at a time.
 
-   * File ingestion
-   * Prompt
-   * LLM response
-   * JSON parsing
-   * Validation
-   * Embedding generation
-   * Similarity search
+Debug Order:
+
+* File ingestion
+* Prompt construction
+* LLM response
+* JSON parsing
+* Validation
+* Embedding generation
+* Similarity search
+* Retrieval
+* RAG pipeline
 
 ---
 
 # Last Completed Feature
 
-Feature Branch:
+## Feature Branch
 
 feature/embedding-foundation
 
-Result:
+## Result
 
 Successfully generated OpenAI embeddings and verified semantic vector generation.
 
@@ -459,3 +637,7 @@ Example Runtime Output:
 1536
 [-0.0546, -0.0300, 0.0701, ...]
 ```
+
+Project Status:
+
+Ready to begin Milestone 6 - Semantic Search.

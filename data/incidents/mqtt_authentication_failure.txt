@@ -1,0 +1,4 @@
+MQTT broker rejected client authentication request.
+Provided credentials were invalid.
+Connection attempts were denied repeatedly.
+Message publishing could not proceed.

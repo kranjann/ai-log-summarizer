@@ -1,0 +1,4 @@
+Application startup failed due to invalid configuration.
+Required environment variables were missing.
+Dependency initialization was unsuccessful.
+Service failed during bootstrap phase.

@@ -1,0 +1,4 @@
+External API returned rate limit exceeded responses.
+Request quota was exhausted.
+Several integration calls failed.
+Application entered retry mode.

@@ -1,0 +1,4 @@
+Kafka producer failed to connect to broker cluster.
+Broker nodes were unreachable.
+Message publishing backlog increased.
+Event processing pipeline stalled.

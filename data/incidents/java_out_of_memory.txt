@@ -1,0 +1,4 @@
+Java heap space exhausted during batch processing.
+Memory allocation requests failed.
+Application encountered OutOfMemoryError.
+Process terminated unexpectedly.

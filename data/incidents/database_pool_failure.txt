@@ -1,0 +1,4 @@
+PostgreSQL connection pool exhausted.
+Application unable to acquire database connections.
+Multiple requests timed out waiting for an available connection.
+Service startup eventually failed.
